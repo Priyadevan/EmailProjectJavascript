@@ -1,0 +1,37 @@
+create database phpprojectdb;
+
+use phpprojectdb;
+
+create table tblusers
+(
+	uid tinyint unsigned auto_increment primary key,
+	fullname varchar(100) not null,
+	email varchar(100) unique not null,
+	password varchar(10) not null,
+	mobile bigint unique not null,
+	loginstatus bit(1) default 0,
+	index(fullname)
+);
+
+insert into tblusers(fullname,email,password,mobile) values ('Sam','sam@gmail.com','sam',9876543210);
+
+
+insert into tblusers(fullname,email,password,mobile) values('Test','test@gmail.com','test',6376543210);
+
+
+insert into tblusers(fullname,email,password,mobile) values('Abc','abc@gmail.com','abc',8939786654);
+
+create table tblmessages
+(
+	mid tinyint unsigned auto_increment primary key,
+	fromid tinyint unsigned not null,
+	toid tinyint unsigned not null,
+	subject varchar(100),
+	dtime datetime,
+	message varchar(1000) not null,
+	inboxvisibility bit(1) default 1,
+	sentvisibility bit(1) default 1,
+	foreign key(fromid) references tblusers(uid),
+	foreign key(toid) references tblusers(uid)
+);
+
